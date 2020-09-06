@@ -1,13 +1,18 @@
 package com.amey.gameapplication.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.amey.gameapplication.model.ArmorModel
 import com.amey.gameapplication.repository.RemoteDataSource
 
+
 class HomeViewModel : ViewModel() {
 
-    lateinit var armorList: LiveData<List<ArmorModel>>
+    var armorList = MutableLiveData<List<ArmorModel>>()
+    var searchresult = MutableLiveData<List<ArmorModel>>()
+    var nameQueryLiveData = MutableLiveData<String>()
     var remoteDataSource: RemoteDataSource? = null
 
     init {
@@ -16,7 +21,35 @@ class HomeViewModel : ViewModel() {
     }
 
     private fun getArmors() {
-        armorList = remoteDataSource!!.getArmors()
+        armorList = remoteDataSource!!.getArmors() as MutableLiveData<List<ArmorModel>>
+
     }
-    // TODO: Implement the ViewModel
+
+    fun getArmorsWithNameLiveData(): LiveData<List<ArmorModel>>? {
+        return Transformations.switchMap(nameQueryLiveData) { name: String? ->
+            getArmorsWithNameLiveData(name)
+        }
+    }
+
+
+    private fun getArmorsWithNameLiveData(name: String?): LiveData<List<ArmorModel>> {
+        val armorupdatedlist = mutableListOf<ArmorModel>()
+        val armorUpdatedLiveData: MutableLiveData<List<ArmorModel>> by lazy {
+            MutableLiveData<List<ArmorModel>>()
+        }
+
+        for (row in armorList.value!!) {
+            if (row.name.toLowerCase().contains(name!!.toLowerCase())) {
+                armorupdatedlist.add(row)
+            }
+        }
+        armorUpdatedLiveData.value = armorupdatedlist
+        return armorUpdatedLiveData
+    }
+
+    fun setNameQuery(name: String) {
+        this.nameQueryLiveData.value = name
+    }
+
+
 }

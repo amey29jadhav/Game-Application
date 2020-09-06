@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import com.amey.gameapplication.R
 import com.amey.gameapplication.viewmodel.HomeViewModel
 
@@ -27,6 +28,10 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+        viewModel.armorList.observe(viewLifecycleOwner, Observer {
+
+            println("list values: $it.indices")
+        })
         // TODO: Use the ViewModel
     }
 

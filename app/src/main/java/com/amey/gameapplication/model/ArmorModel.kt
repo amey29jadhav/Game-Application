@@ -4,7 +4,9 @@ data class ArmorModel(
 
     val name: String,
     val rank: String,
-    val type: String
+    val type: String,
+    val defense: DefenceModel,
+    val slots: List<SlotsModel>
 
 )
 

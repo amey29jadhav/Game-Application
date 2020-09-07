@@ -19,6 +19,9 @@ class RemoteDataSource {
         }
     }
 
+    /***
+     * To send event callback to HomeViewModel once all armors data is fetched successfully
+     */
     interface ResultCallback {
         fun onSuccess()
     }

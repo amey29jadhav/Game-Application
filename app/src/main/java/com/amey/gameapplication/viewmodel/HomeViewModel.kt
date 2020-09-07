@@ -8,11 +8,10 @@ import com.amey.gameapplication.model.ArmorModel
 import com.amey.gameapplication.repository.RemoteDataSource
 
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel : ViewModel(), RemoteDataSource.ResultCallback {
 
     var armorList = MutableLiveData<List<ArmorModel>>()
-    var searchresult = MutableLiveData<List<ArmorModel>>()
-    var nameQueryLiveData = MutableLiveData<String>()
+    var nameQueryLiveData = MutableLiveData<String?>()
     var remoteDataSource: RemoteDataSource? = null
 
     init {
@@ -21,14 +20,19 @@ class HomeViewModel : ViewModel() {
     }
 
     private fun getArmors() {
-        armorList = remoteDataSource!!.getArmors() as MutableLiveData<List<ArmorModel>>
+        armorList = remoteDataSource!!.getArmors(this) as MutableLiveData<List<ArmorModel>>
 
     }
 
     fun getArmorsWithNameLiveData(): LiveData<List<ArmorModel>>? {
         return Transformations.switchMap(nameQueryLiveData) { name: String? ->
             getArmorsWithNameLiveData(name)
+
         }
+    }
+
+    fun getAllArmorsLiveData(): LiveData<List<ArmorModel>> {
+        return armorList
     }
 
 
@@ -49,6 +53,10 @@ class HomeViewModel : ViewModel() {
 
     fun setNameQuery(name: String) {
         this.nameQueryLiveData.value = name
+    }
+
+    override fun onSuccess() {
+        setNameQuery("")
     }
 
 

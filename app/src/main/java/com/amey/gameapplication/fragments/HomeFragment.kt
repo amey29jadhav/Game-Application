@@ -32,7 +32,7 @@ class HomeFragment : Fragment(), androidx.appcompat.widget.SearchView.OnQueryTex
         homeFragmentBinding.productsRecyclerView.layoutManager = LinearLayoutManager(context)
 
         homeFragmentBinding.searchview.setIconifiedByDefault(false)
-        homeFragmentBinding.searchview.clearFocus()
+        //homeFragmentBinding.searchview.clearFocus()
         homeFragmentBinding.searchview.setOnQueryTextListener(this)
 
 
@@ -43,45 +43,40 @@ class HomeFragment : Fragment(), androidx.appcompat.widget.SearchView.OnQueryTex
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
 
-        viewModel.armorList.observe(viewLifecycleOwner, Observer { armorlist ->
-            if (viewModel.nameQueryLiveData.value!!.isEmpty()) {
-                if (gameAdapter == null) {
-                    gameAdapter = GameAdapter(viewModel.armorList.value!!)
-                    homeFragmentBinding.productsRecyclerView.adapter = gameAdapter
-                } else {
-                    gameAdapter?.setValue(armorlist)
-                    gameAdapter?.notifyDataSetChanged()
-                }
-            }
-        })
+        /***
+         * Observer to receiver all armors list
+         */
+        /* viewModel.getAllArmorsLiveData().observe(viewLifecycleOwner, Observer { armorlist ->
+             if (viewModel.nameQueryLiveData.value == null) {
+                 gameAdapter = GameAdapter(armorlist)
+                 homeFragmentBinding.productsRecyclerView.adapter = gameAdapter
+             }
+         })*/
 
+        /***
+         *  observer to receive filtered list on performing search by armor name
+         */
         viewModel.getArmorsWithNameLiveData()?.observe(viewLifecycleOwner, Observer { armorlist ->
-            gameAdapter?.setValue(armorlist)
-            gameAdapter?.notifyDataSetChanged()
+
+            gameAdapter = GameAdapter(armorlist)
+            homeFragmentBinding.productsRecyclerView.adapter = gameAdapter
+
         })
 
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         if (query != null) {
-            /*val newText =viewModel.searchString.value +"$query"
-            viewModel.searchString.value = newText*/
             viewModel.setNameQuery(query)
         }
-        return true
+        return false
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
         if (newText != null) {
-            /* val newText =viewModel.searchString.value +"$newText"
-             viewModel.searchString.value = newText*/
             viewModel.setNameQuery(newText)
         }
-        return true
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
+        return false
     }
 
 }

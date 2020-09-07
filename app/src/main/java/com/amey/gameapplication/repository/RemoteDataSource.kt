@@ -19,7 +19,11 @@ class RemoteDataSource {
         }
     }
 
-    fun getArmors(): LiveData<List<ArmorModel>> {
+    interface ResultCallback {
+        fun onSuccess()
+    }
+
+    fun getArmors(callback: ResultCallback): LiveData<List<ArmorModel>> {
 
 
         val armorsLiveData: MutableLiveData<List<ArmorModel>> by lazy {
@@ -36,6 +40,7 @@ class RemoteDataSource {
                 response: Response<List<ArmorModel>>
             ) {
                 armorsLiveData.value = response.body()
+                callback.onSuccess()
             }
 
             override fun onFailure(call: Call<List<ArmorModel>>, t: Throwable) {

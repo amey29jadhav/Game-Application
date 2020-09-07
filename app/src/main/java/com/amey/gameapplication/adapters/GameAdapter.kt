@@ -19,7 +19,8 @@ class GameAdapter(var list: List<ArmorModel>) : RecyclerView.Adapter<GameAdapter
         var base: AppCompatTextView? = null
         var slots: AppCompatTextView? = null
         var type: ImageView? = null
-        lateinit var mycontext: Context
+        var baseimage: ImageView? = null
+        private var mycontext: Context
 
 
         init {
@@ -28,6 +29,7 @@ class GameAdapter(var list: List<ArmorModel>) : RecyclerView.Adapter<GameAdapter
             base = itemView.findViewById(R.id.base)
             slots = itemView.findViewById(R.id.slots)
             type = itemView.findViewById(R.id.type)
+            baseimage = itemView.findViewById(R.id.baseimage)
             mycontext = parent.context
 
         }
@@ -36,6 +38,8 @@ class GameAdapter(var list: List<ArmorModel>) : RecyclerView.Adapter<GameAdapter
             name?.text = armorModel.name
             rank?.text = armorModel.rank
             base?.text = armorModel.defense.base.toString()
+            baseimage?.setImageDrawable(ContextCompat.getDrawable(mycontext, R.drawable.ic_shield))
+
             slots?.text = armorModel.slots.size.toString()
 
             if (armorModel.type.toLowerCase().contentEquals(Type.Head.name.toLowerCase())) {
@@ -53,8 +57,8 @@ class GameAdapter(var list: List<ArmorModel>) : RecyclerView.Adapter<GameAdapter
                     .contentEquals(Type.Gloves.name.toLowerCase())
             ) {
                 type?.setImageDrawable(ContextCompat.getDrawable(mycontext, R.drawable.ic_waist))
-
             }
+
 
         }
 

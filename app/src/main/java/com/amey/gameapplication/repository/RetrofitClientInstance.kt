@@ -12,13 +12,10 @@ object RetrofitClientInstance {
     private const val BASE_URL = "https://mhw-db.com/"
     private val client = OkHttpClient.Builder().build()
 
-    var gson = GsonBuilder()
-        .setLenient()
-        .create()
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addConverterFactory(GsonConverterFactory.create())
         .addConverterFactory(ScalarsConverterFactory.create())
         .client(client)
         .build()

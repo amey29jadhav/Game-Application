@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp">
-
     <ImageView
         android:id="@+id/type"
         android:layout_width="20dp"
@@ -11,14 +10,12 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="5dp"></ImageView>
-
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/type"
         android:text="TextView" />
-
     <TextView
         android:id="@+id/rank"
         android:layout_width="wrap_content"
@@ -35,12 +32,23 @@
         android:layout_centerHorizontal="true"
         android:text="TextView" />
 
+    <ImageView
+        android:id="@+id/baseimage"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_below="@id/name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="2dp"
+        android:layout_toLeftOf="@+id/base"></ImageView>
+
     <TextView
         android:id="@+id/slots"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/name"
         android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
         android:text="TextView" />
 
 </RelativeLayout>

@@ -75,7 +75,6 @@ class HomeFragment : Fragment(), androidx.appcompat.widget.SearchView.OnQueryTex
         )
 
         searchView.setIconifiedByDefault(false)
-        searchView.setOnQueryTextListener(this)
 
 
     }
@@ -108,6 +107,7 @@ class HomeFragment : Fragment(), androidx.appcompat.widget.SearchView.OnQueryTex
                 progressBar.visibility = View.GONE
                 progressText.visibility = View.GONE
                 searchView.visibility = View.VISIBLE
+                searchView.setOnQueryTextListener(this)
 
 
             }

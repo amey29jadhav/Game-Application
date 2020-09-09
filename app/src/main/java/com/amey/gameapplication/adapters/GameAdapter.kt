@@ -2,6 +2,7 @@ package com.amey.gameapplication.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.view.ViewParent
 import android.widget.ImageView
@@ -10,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.amey.gameapplication.R
 import com.amey.gameapplication.model.ArmorModel
+import com.google.gson.Gson
 
 class GameAdapter(var list: List<ArmorModel>) : RecyclerView.Adapter<GameAdapter.GameViewHolder>() {
     class GameViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
@@ -20,6 +22,7 @@ class GameAdapter(var list: List<ArmorModel>) : RecyclerView.Adapter<GameAdapter
         var slots: AppCompatTextView? = null
         var type: ImageView? = null
         var baseimage: ImageView? = null
+        var slotsimage: ImageView? = null
         private var mycontext: Context
 
 
@@ -30,6 +33,7 @@ class GameAdapter(var list: List<ArmorModel>) : RecyclerView.Adapter<GameAdapter
             slots = itemView.findViewById(R.id.slots)
             type = itemView.findViewById(R.id.type)
             baseimage = itemView.findViewById(R.id.baseimage)
+            slotsimage = itemView.findViewById(R.id.slotsimage)
             mycontext = parent.context
 
         }
@@ -41,6 +45,18 @@ class GameAdapter(var list: List<ArmorModel>) : RecyclerView.Adapter<GameAdapter
             baseimage?.setImageDrawable(ContextCompat.getDrawable(mycontext, R.drawable.ic_shield))
 
             slots?.text = armorModel.slots.size.toString()
+            slotsimage?.setImageDrawable(ContextCompat.getDrawable(mycontext, R.drawable.ic_deco))
+
+            if (armorModel.slots.isEmpty()) {
+                slots?.visibility = View.GONE
+                slotsimage?.visibility = View.GONE
+            } else {
+                slots?.visibility = View.VISIBLE
+                slotsimage?.visibility = View.VISIBLE
+
+            }
+            val gson = Gson()
+            val json = gson.toJson(armorModel)
 
             if (armorModel.type.toLowerCase().contentEquals(Type.Head.name.toLowerCase())) {
                 type?.setImageDrawable(ContextCompat.getDrawable(mycontext, R.drawable.ic_head))

@@ -9,19 +9,19 @@
         android:layout_height="20dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="5dp"></ImageView>
+        android:layout_marginEnd="5dp"></ImageView>
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/type"
+        android:layout_toEndOf="@+id/type"
         android:text="TextView" />
     <TextView
         android:id="@+id/rank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/name"
-        android:layout_toRightOf="@+id/type"
+        android:layout_toEndOf="@+id/type"
         android:text="TextView" />
 
     <TextView
@@ -37,10 +37,18 @@
         android:layout_width="13dp"
         android:layout_height="13dp"
         android:layout_below="@id/name"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
         android:layout_marginRight="2dp"
-        android:layout_toLeftOf="@+id/base"></ImageView>
+        android:layout_toStartOf="@+id/base"></ImageView>
+
+    <ImageView
+        android:id="@+id/slotsimage"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_below="@id/name"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="2dp"
+        android:layout_toStartOf="@+id/slots"></ImageView>
 
     <TextView
         android:id="@+id/slots"
@@ -50,5 +58,6 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="5dp"
         android:text="TextView" />
+
 
 </RelativeLayout>
